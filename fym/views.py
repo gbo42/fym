@@ -10,8 +10,7 @@ from django.contrib.auth.models import User
 
 def index(request):
     dicio = {}
-    
-    dicio['trilhas'] = Trilha.objects.all
+    dicio['trilhas'] = Trilha.objects.order_by('-id')[:5]
 
     response = render(request, 'fym/index.html', dicio)
     return response
@@ -96,3 +95,30 @@ def add_bloco(request, trilha_slug):
     dicio['slug'] = trilha_slug
     dicio['user'] = user
     return render(request, 'fym/add_bloco.html', dicio)
+
+def signup(request):
+    registered = False
+
+    if request.method == 'POST':
+
+        user_form = UserForm(data=request.POST)
+        usuario_form = UsuarioForm(data=request.POST)
+
+        if user_form.is_valid() and usuario_form.is_valid():
+            user = user_form.save()
+            user.set_password(user.password)
+            user.save()
+            usuario = usuario_form.save(commit=False)
+            usuario.user = user
+            usuario.save()
+            registered = True
+
+        else:
+            print user_form.errors, usuario_form.errors
+    else:
+        user_form = UserForm()
+        usuario_form = UsuarioForm()
+
+    return render(request,
+            'fym/signup.html',
+            {'user_form': user_form, 'usuario_form': usuario_form, 'registered': registered} )

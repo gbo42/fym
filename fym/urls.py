@@ -10,4 +10,5 @@ urlpatterns = patterns('',
     url(r'^trilha/(?P<trilha_slug>[\w\-]+)/$', views.trilha, name='trilha'), 
     url(r'^trilha/(?P<trilha_slug>[\w\-]+)/add_bloco/$', views.add_bloco, name='add_bloco'), 
     url(r'^add_trilha/$', views.add_trilha, name='add_trilha'),
+    url(r'^signup/$', views.signup, name='signup'),
     )
