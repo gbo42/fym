@@ -1,0 +1,9 @@
+{% extends 'fym/base.html' %}
+{% block title %} {{ trilha.name }} {% endblock %}
+{% block body %}
+	{{ bloco.texto }}
+	{% for bloco in blocos %}
+		<p>{{ bloco.texto }}</p>
+	{% endfor %}
+	<a href="/fym/trilha/{{ trilha.slug }}/add_bloco">+ Bloco</a>
+{% endblock %}

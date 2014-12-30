@@ -1,0 +1,17 @@
+{% extends 'fym/base.html' %}
+
+{% block title %} - Home {% endblock %}
+
+{% block body %}
+
+	<h1>Bem-vindo ao FYM</h1>
+	<h2>Free Your Mind - Liberte Sua Mente</h2>
+
+	<h3>Aqui está uma lista das Trilhas mais vistas</h3>
+
+	{% for trilha in trilhas %}
+		<a href="/fym/trilha/{{ trilha.slug }}/">{{ trilha.name }}</a>
+		<p>{{ trilha.get_first }}</p>
+	{% endfor %}
+
+{% endblock %}
