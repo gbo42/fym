@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from fym.models import Trilha, Bloco
+from fym.models import Trilha, Bloco, Usuario
 from fym.forms import UserForm, UsuarioForm, TrilhaForm, BlocoForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
@@ -11,7 +11,9 @@ from django.contrib.auth.models import User
 def index(request):
     dicio = {}
     dicio['trilhas'] = Trilha.objects.order_by('-id')[:5]
-
+    if request.user.is_authenticated():
+        user = request.user
+        dicio['usuario'] = Usuario.objects.get(user=user)
     response = render(request, 'fym/index.html', dicio)
     return response
 
