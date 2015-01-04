@@ -18,12 +18,15 @@ def index(request):
     return response
 
 def about(request):
-
-    response = render(request, 'fym/about.html', {})
+    dicio = {}
+    if request.user.is_authenticated():
+        user = request.user
+        dicio['usuario'] = Usuario.objects.get(user=user)
+    
+    response = render(request, 'fym/about.html', dicio)
     return response
 
 def user_login(request):
-
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -49,8 +52,10 @@ def user_logout(request):
     return HttpResponseRedirect('/fym/')
 
 def add_trilha(request):
+    dicio = {}
     if request.user.is_authenticated():
         user = request.user
+        dicio['usuario'] = Usuario.objects.get(user=user)
     else:
         return index(request)
 
@@ -73,20 +78,28 @@ def add_trilha(request):
         form1 = TrilhaForm()
         form2 = BlocoForm()
 
-    return render(request, 'fym/add_trilha.html', {'form1': form1,'form2': form2})
+    dicio['form1'] = form1
+    dicio['form2'] = form2   
+    return render(request, 'fym/add_trilha.html', dicio)
 
 def trilha(request, trilha_slug):
+    dicio = {}
+    if request.user.is_authenticated():
+        user = request.user
+        dicio['usuario'] = Usuario.objects.get(user=user)
+
     pre_trilha = Trilha.objects.filter(slug=trilha_slug)
     trilha = pre_trilha[0]
     bloco = Bloco.objects.filter(trilha=trilha.id)
-    dicio = {}
     dicio['trilha'] = trilha
     dicio['blocos'] = bloco
     return render(request, 'fym/trilha.html', dicio)
 
 def add_bloco(request, trilha_slug):
+    dicio = {}
     if request.user.is_authenticated():
         user = request.user
+        dicio['usuario'] = Usuario.objects.get(user=user)
     else:
         return index(request)
     form = None
@@ -94,7 +107,6 @@ def add_bloco(request, trilha_slug):
         trilha = Trilha.objects.get(slug=trilha_slug)
     except Trilha.DoesNotExist:
         trila = None
-    dicio = {}
     if request.method == 'POST':
         form = BlocoForm(request.POST)
         if form.is_valid():

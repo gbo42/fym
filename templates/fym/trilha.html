@@ -4,9 +4,29 @@
 
 {% block title %} {{ trilha.name }} {% endblock %}
 {% block body %}
-	{{ bloco.texto }}
-	{% for bloco in blocos %}
-		<p>{{ bloco.texto }}</p>
-	{% endfor %}
-	<a href="/fym/trilha/{{ trilha.slug }}/add_bloco">+ Bloco</a>
+
+	<div class="row">
+		<div class="large-8 small-12 small-centered columns">
+			<h1 style="text-align:center;">Track Name</h1>
+			{% for bloco in blocos %}
+			<div class="panel">
+				<p> {{ bloco.texto }}</p>
+			</div>
+			{% endfor %}
+			<div style="text-align:center;"><a href="/fym/trilha/{{ trilha.slug }}/add_bloco" class="button large alert" data-reveal-id="myModal">Add Block</a></div>
+		</div>
+		
+		<div id="myModal" class="reveal-modal" data-reveal> 
+			<form>
+				<a class="close-reveal-modal">&#215;</a>
+				<div class="row">
+					<div class="small-11 medium-7 small-centered columns" style="text-align:center;">
+						<h1 style="text-align:center;">New Block</h1>
+						<textarea type="text" placeholder="Write your block here" style="height:300px;"></textarea>
+						<a href="#" class="button alert">Submit Block</a>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
 {% endblock %}
