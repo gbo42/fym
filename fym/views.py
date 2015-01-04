@@ -49,17 +49,31 @@ def user_logout(request):
     return HttpResponseRedirect('/fym/')
 
 def add_trilha(request):
-    if request.method == 'POST':
-        form = TrilhaForm(request.POST)
-        if form.is_valid():
-            form.save(commit=True)
-            return index(request)
-        else:
-            print form.errors
+    if request.user.is_authenticated():
+        user = request.user
     else:
-        form = TrilhaForm()
+        return index(request)
 
-    return render(request, 'fym/add_trilha.html', {'form': form})
+    if request.method == 'POST':
+        form1 = TrilhaForm(request.POST)
+        form2 = BlocoForm(request.POST)
+        if form1.is_valid():
+            trilha = form1.save(commit=True)
+            if form2.is_valid():
+                bloco = form2.save(commit=False)
+                bloco.trilha = trilha
+                bloco.usuario = user
+                bloco.save()
+                return index(request)
+            else:
+                print form2.errors
+        else:
+            print form1.errors
+    else:
+        form1 = TrilhaForm()
+        form2 = BlocoForm()
+
+    return render(request, 'fym/add_trilha.html', {'form1': form1,'form2': form2})
 
 def trilha(request, trilha_slug):
     pre_trilha = Trilha.objects.filter(slug=trilha_slug)

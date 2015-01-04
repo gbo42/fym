@@ -8,8 +8,8 @@ class TrilhaForm(forms.ModelForm):
     class Meta:
         model = Trilha
         fields = ('name',)
-
-
+    def get_name(self):
+        return self.name
 class BlocoForm(forms.ModelForm):
     texto = forms.CharField(max_length=240, help_text="Escreva seu pedaco da historia")
 
