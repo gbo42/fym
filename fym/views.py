@@ -138,6 +138,7 @@ def add_bloco(request, trilha_slug):
     return render(request, 'fym/add_bloco.html', dicio)
 
 def signup(request):
+    dicio = {}
     if request.user.is_authenticated():
         return HttpResponseRedirect('/fym/')
 
@@ -156,6 +157,7 @@ def signup(request):
             usuario.user = user
             usuario.save()
             registered = True
+            return HttpResponseRedirect('/fym/')
 
         else:
             print user_form.errors, usuario_form.errors
@@ -163,9 +165,10 @@ def signup(request):
         user_form = UserForm()
         usuario_form = UsuarioForm()
 
-    return render(request,
-            'fym/signup.html',
-            {'user_form': user_form, 'usuario_form': usuario_form, 'registered': registered} )
+    dicio['user_form'] = user_form
+    dicio['usuario_form'] = usuario_form
+    dicio['registered'] = registered
+    return render(request, 'fym/signup.html', dicio)
 
 def meus_blocos(request):
     dicio = {}

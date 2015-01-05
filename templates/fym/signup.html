@@ -4,14 +4,7 @@
 
 {% block title %} SignUp{% endblock %}
 
-{% block body %}
-        <h1>Sign Up - Fym</h1>
-
-        {% if registered %}
-        <strong>thank you for registering!</strong>
-        <a href="{% url 'index' %}">Return to the homepage.</a>
-        {% else %}
-        
+{% block body %}        
     <form id="user_form" method="post" action="/fym/signup/" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="row">
