@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 
 def index(request):
     dicio = {}
-    dicio['trilhas'] = Trilha.objects.order_by('-id')[:5]
+    dicio['trilhas'] = Trilha.objects.order_by('-id')[:8]
     if request.user.is_authenticated():
         user = request.user
         dicio['usuario'] = Usuario.objects.get(user=user)
@@ -27,6 +27,8 @@ def about(request):
     return response
 
 def user_login(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect('/fym/')
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -57,7 +59,7 @@ def add_trilha(request):
         user = request.user
         dicio['usuario'] = Usuario.objects.get(user=user)
     else:
-        return index(request)
+        return HttpResponseRedirect('/fym/')
 
     if request.method == 'POST':
         form1 = TrilhaForm(request.POST)
@@ -96,6 +98,16 @@ def trilha(request, trilha_slug):
     dicio['slug'] = trilha_slug
     return render(request, 'fym/trilha.html', dicio)
 
+def trilhas(request):
+    dicio = {}
+    if request.user.is_authenticated():
+        user = request.user
+        dicio['usuario'] = Usuario.objects.get(user=user)
+
+    trilhas = Trilha.objects.all()
+    dicio['trilhas'] = trilhas
+    return render(request, 'fym/trilhas.html', dicio)
+
 def add_bloco(request, trilha_slug):
     dicio = {}
     if request.user.is_authenticated():
@@ -126,6 +138,9 @@ def add_bloco(request, trilha_slug):
     return render(request, 'fym/add_bloco.html', dicio)
 
 def signup(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect('/fym/')
+
     registered = False
 
     if request.method == 'POST':
@@ -151,3 +166,16 @@ def signup(request):
     return render(request,
             'fym/signup.html',
             {'user_form': user_form, 'usuario_form': usuario_form, 'registered': registered} )
+
+def meus_blocos(request):
+    dicio = {}
+    if request.user.is_authenticated():
+        user = request.user
+        dicio['usuario'] = Usuario.objects.get(user=user)
+    else:
+        return HttpResponseRedirect('/fym/')
+
+    blocos = Bloco.objects.filter(usuario=user)
+    dicio['blocos'] = blocos
+    return render(request, 'fym/meus_blocos.html', dicio)
+

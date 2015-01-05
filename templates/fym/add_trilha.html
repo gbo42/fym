@@ -2,11 +2,9 @@
 
 {% load staticfiles %}
 
-{% block title %} - Home {% endblock %}
+{% block title %} Add Track {% endblock %}
 
 {% block body %}
-{% if user.is_authenticated %}
-
     <form id="category_form" method="post" accept="/fym/add_trilha/">
         {% csrf_token %}
         <div class="row">
@@ -19,37 +17,4 @@
             </div>
         </div>
     </form>
-
-	<h1>Nova Trilha</h1>
-	<h2>Free Your Mind - Liberte Sua Mente</h2>
-
-    <form id="category_form" method="post" action="/fym/add_trilha/">
-
-        {% csrf_token %}
-        {% for hidden in form1.hidden_fields %}
-            {{ hidden }}
-        {% endfor %}
-
-        {% for field in form1.visible_fields %}
-            {{ field.errors }}
-            {{ field.help_text }}
-            {{ field }}
-        {% endfor %}
-
-        {% csrf_token %}
-        {% for hidden in form2.hidden_fields %}
-            {{ hidden }}
-        {% endfor %}
-
-        {% for field in form2.visible_fields %}
-            {{ field.errors }}
-            {{ field.help_text }}
-            {{ field }}
-        {% endfor %}
-
-        <input type="submit" name="submit" value="Create Trilha" />
-    </form>
-{% else %}
-	<h1>faça Login</h1>
-{% endif %}
 {% endblock %}

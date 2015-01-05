@@ -1,0 +1,28 @@
+{% extends 'fym/base.html' %}
+
+{% load staticfiles %}
+
+{% block title %} Trilhas {% endblock %}
+
+{% block body %}
+	
+	<div class="row">
+		<div class="small-11 columns">
+			<h1 style="text-align:center;">All Tracks</h1>
+			</div>
+
+		<ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-4">
+			{% for trilha in trilhas %}
+				<li>
+					<div class="panel">
+						<a href="/fym/trilha/{{ trilha.slug }}"><h2>{{ trilha.name }}</h2></a>
+						<div class="panel callout radius">
+							<p>{{ trilha.get_first }}</p>
+						</div>
+					</div>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+
+{% endblock %}

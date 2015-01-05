@@ -5,15 +5,28 @@
 {% block title %} Home{% endblock %}
 
 {% block body %}
-
-	<h1>Bem-vindo ao FYM</h1>
-	<h2>Free Your Mind - Liberte Sua Mente</h2>
-
-	<h3>Aqui está uma lista das Trilhas mais vistas</h3>
-
-	{% for trilha in trilhas %}
-		<a href="/fym/trilha/{{ trilha.slug }}/">{{ trilha.name }}</a>
-		<p>{{ trilha.get_first }}</p>
-	{% endfor %}
+	<div class="row" style="text-align:center;">
+		<div class="small-11 medium-10 large-9 small-centered columns">
+			<h1>Welcome to fym</h1>
+			<h2>Here's the newest tracks, enjoy!</h2>
+			<ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-4">
+			{% for trilha in trilhas %}
+				<li>
+					<div class="panel radius">
+						<a href="/fym/trilha/{{ trilha.slug }}/">{{ trilha.name }}</a>
+						<p>{{ trilha.get_first }}</p>
+					</div>
+				</li>
+			{% endfor %}
+			</ul>
+		</div>
+	</div>
+	{% if not user.is_authenticated %}
+	<div class="row" style="text-align:center;">
+		<div class="small-11 centered columns">
+			<h3>you should <a href="{% url 'signup' %}">register</a><br /> here is where all the <i>cool kids</i> are playing!</h3>
+		</div>
+	</div>
+	{% endif %}
 
 {% endblock %}

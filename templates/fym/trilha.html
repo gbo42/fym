@@ -15,8 +15,12 @@
 			{% endfor %}
 			<div style="text-align:center;"><a class="button large alert" data-reveal-id="myModal">Add Block</a></div>
 		</div>
-		
-		<div id="myModal" class="reveal-modal" data-reveal> 
+		<style>
+		.reveal-modal-bg{
+			position:fixed;
+		}
+		</style>
+		<div id="myModal" class="reveal-modal" style="position:fixed;" data-reveal> 
 			<form id="bloco_form" method="post" action="/fym/trilha/{{ slug }}/add_bloco/">
 				{% csrf_token %}
 				<a class="close-reveal-modal">&#215;</a>

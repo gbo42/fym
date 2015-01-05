@@ -20,16 +20,16 @@
 			<section class="top-bar-section"> 
 				<!-- Right Nav Section --> 
 				<ul class="right"> 
-					<li><a href="{% url 'add_trilha' %}"><strong>+</strong> Nova Trilha</a></li>
-					{% if user.is_authenticated %} 
+					{% if user.is_authenticated %}
+					<li><a href="{% url 'add_trilha' %}"><strong>+</strong> Nova Trilha</a></li> 
 						<li class="has-dropdown"> <a>{{ usuario.apelido }}</a> 
 							<ul class="dropdown"> 
-								<li><a href="#">Tracks</a></li>
-								<li><a href="#"><3</a></li> 
+								<li><a href="{% url 'meus_blocos' %}">My Blocks</a></li>
 								<li><a href="{% url 'logout' %}">Logout</a></li> 
 							</ul> 
 						</li> 
 					 {% else %} 
+					 	<li><a href="{% url 'signup' %}">Register</a></li>
 					 	<li><a href ="{% url 'login' %}">Log In</a></li> 
 					 {% endif %}
 				</ul> 

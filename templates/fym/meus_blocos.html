@@ -1,0 +1,25 @@
+{% extends 'fym/base.html' %}
+
+{% load staticfiles %}
+
+{% block title %} My Blocks {% endblock %}
+
+{% block body %}
+
+	<div class="row">
+		<div class="small-12 medium-10 medium-centered columns">
+			<h1 style="text-align:center;">Your Blocks</h1>
+			<ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
+			{% for bloco in blocos %}
+				<li>
+					<div class="panel">
+						<p>{{ bloco.texto }}</p>
+						<a href="/fym/trilha/{{ bloco.get_track.slug }}/">{{ bloco.get_track.name }}</a>
+					</div>
+				</li>
+			{% endfor %}
+			</ul>
+		</div>
+	</div>
+
+{% endblock %}

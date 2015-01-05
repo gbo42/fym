@@ -29,9 +29,12 @@ class Trilha(models.Model):
         return self.name
 
 class Bloco(models.Model):
-	trilha = models.ForeignKey(Trilha)
-	usuario = models.ForeignKey(User)
-	texto = models.CharField(max_length=240, unique=True)
+    trilha = models.ForeignKey(Trilha)
+    usuario = models.ForeignKey(User)
+    texto = models.CharField(max_length=240, unique=True)
 
-	def __unicode__(self):
-		return self.texto
+    def get_track(self):
+        trilha_ = Trilha.objects.get(name=self.trilha)
+        return trilha_
+    def __unicode__(self):
+        return self.texto
