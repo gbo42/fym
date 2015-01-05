@@ -13,6 +13,7 @@ class Usuario(models.Model):
 class Trilha(models.Model):
     name = models.CharField(max_length=128, unique=True)
     slug = models.SlugField(unique=True)
+    likes = models.IntegerField(default=0)
 
     def get_first(self):
         bloco = Bloco.objects.filter(trilha = self.id)
@@ -31,7 +32,8 @@ class Trilha(models.Model):
 class Bloco(models.Model):
     trilha = models.ForeignKey(Trilha)
     usuario = models.ForeignKey(User)
-    texto = models.CharField(max_length=240, unique=True)
+    texto = models.CharField(max_length=2000, unique=True)
+    hearts = models.IntegerField(default=0)
 
     def get_track(self):
         trilha_ = Trilha.objects.get(name=self.trilha)
