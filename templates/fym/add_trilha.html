@@ -6,6 +6,20 @@
 
 {% block body %}
 {% if user.is_authenticated %}
+
+    <form id="category_form" method="post" accept="/fym/add_trilha/">
+        {% csrf_token %}
+        <div class="row">
+            <div class="small-12 medium-10 large-8 medium-centered columns" style="text-align:center;">
+                <h1 style="text-align:center;">Name your Track:</h1>
+                <input type="text" name="name" placeholder="Name It!" style="font-size:36px; height:auto;"/>
+                <h2>Create the very start of the tale</h2>
+                <textarea name="texto" placeholder="write the first block" style="font-size:24px; height:200px;"></textarea>
+                <input type ="submit" value="Add Track" href="#" class="button large" style="width:100%;" />
+            </div>
+        </div>
+    </form>
+
 	<h1>Nova Trilha</h1>
 	<h2>Free Your Mind - Liberte Sua Mente</h2>
 

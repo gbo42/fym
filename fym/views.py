@@ -93,6 +93,7 @@ def trilha(request, trilha_slug):
     bloco = Bloco.objects.filter(trilha=trilha.id)
     dicio['trilha'] = trilha
     dicio['blocos'] = bloco
+    dicio['slug'] = trilha_slug
     return render(request, 'fym/trilha.html', dicio)
 
 def add_bloco(request, trilha_slug):
@@ -114,7 +115,7 @@ def add_bloco(request, trilha_slug):
             bloco.trilha = trilha
             bloco.usuario = user
             bloco.save()
-            return index(request)
+            return HttpResponseRedirect('/fym/')
         else:
             print form.errors
     else:

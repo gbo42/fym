@@ -2,15 +2,30 @@
 
 {% load staticfiles %}
 
-{% block title %} - SignUp{% endblock %}
+{% block title %} SignUp{% endblock %}
 
 {% block body %}
         <h1>Sign Up - Fym</h1>
 
         {% if registered %}
         <strong>thank you for registering!</strong>
-        <a href=" {% url 'index' %} ">Return to the homepage.</a><br />
+        <a href="{% url 'index' %}">Return to the homepage.</a>
         {% else %}
+        
+    <form id="user_form" method="post" action="/fym/signup/" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="small-9 medium-7 small-centered columns" style="text-align:center;">
+                <h1 style="text-align:center;">Register</h1>
+                <input type="email" name="email" placeholder="email:" />
+                <input type="text" name="username" placeholder="username:" />
+                <input type="text" name="apelido" placeholder="pseudonyms:" />
+                <input type="password" name="password" placeholder="password:">
+                <input type="submit" name="submit" value="Sign Up" class="button large success" />
+            </div>
+        </div>
+    </form>
+
         <form id="user_form" method="post" action="/fym/signup/" enctype="multipart/form-data">
 
             {% csrf_token %}
